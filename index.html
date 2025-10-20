@@ -6,7 +6,7 @@
     <title>Disappearing Text Writer</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Times New Roman', serif;
             font-size: 14px;
             background-color: #ffffff;
             color: #000000;
@@ -38,11 +38,28 @@
         }
 
         .controls {
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin: 15px 0;
             padding: 10px;
             border: 1px solid #cccccc;
             background-color: #f0f0f0;
+        }
+
+        .controls-left {
+            flex: 1;
+            text-align: left;
+        }
+
+        .controls-center {
+            flex: 1;
+            text-align: center;
+        }
+
+        .controls-right {
+            flex: 1;
+            text-align: right;
         }
 
         .controls label {
@@ -54,12 +71,12 @@
             padding: 2px;
             border: 1px solid #999999;
             width: 50px;
+            font-family: 'Times New Roman', serif;
         }
 
         .timer {
             font-weight: bold;
             font-size: 16px;
-            margin: 0 15px;
         }
 
         .timer-safe { color: #008000; }
@@ -75,7 +92,7 @@
             padding: 4px 8px;
             font-size: 12px;
             cursor: pointer;
-            margin-left: 10px;
+            font-family: 'Times New Roman', serif;
         }
 
         .reset-btn:active {
@@ -87,7 +104,7 @@
             height: 300px;
             border: 2px inset #cccccc;
             padding: 5px;
-            font-family: "Courier New", monospace;
+            font-family: 'Comic Sans MS', cursive;
             font-size: 14px;
             background-color: #ffffff;
             resize: none;
@@ -132,13 +149,18 @@
         <tr>
             <td>
                 <div class="controls">
-                    <label for="timeoutInput">Timeout:</label>
-                    <input type="number" id="timeoutInput" value="15" min="5" max="300">
-                    <label>seconds</label>
+                    <div class="controls-left">
+                        <input type="number" id="timeoutInput" value="15" min="5" max="300">
+                        <label>seconds</label>
+                    </div>
                     
-                    <span class="timer timer-safe" id="timerDisplay">Ready</span>
+                    <div class="controls-center">
+                        <span class="timer timer-safe" id="timerDisplay">Ready</span>
+                    </div>
                     
-                    <button class="reset-btn" onclick="resetText()">Reset</button>
+                    <div class="controls-right">
+                        <button class="reset-btn" onclick="resetText()">Reset</button>
+                    </div>
                 </div>
                 
                 <textarea 
@@ -265,9 +287,7 @@
             }
         });
 
-        textInput.addEventListener('blur', function() {
-            stopTimer();
-        });
+        // Removed the blur event listener so timer continues when text box loses focus
 
         timeoutInput.addEventListener('change', function() {
             if (isActive) {
